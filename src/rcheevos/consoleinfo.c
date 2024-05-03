@@ -725,10 +725,12 @@ static const rc_memory_regions_t rc_memory_regions_pcfx = { _rc_memory_regions_p
 /* ===== PlayStation ===== */
 /* http://www.raphnet.net/electronique/psx_adaptor/Playstation.txt */
 static const rc_memory_region_t _rc_memory_regions_playstation[] = {
-    { 0x000000U, 0x00FFFFU, 0x000000U, RC_MEMORY_TYPE_SYSTEM_RAM, "Kernel RAM" },
-    { 0x010000U, 0x1FFFFFU, 0x010000U, RC_MEMORY_TYPE_SYSTEM_RAM, "System RAM" }
+    { 0x000000U, 0x00FFFFU, 0x000000U, RC_MEMORY_TYPE_SYSTEM_RAM, "Kernel RAM" },      /* Kernel (64K) */
+    { 0x010000U, 0x1FFFFFU, 0x010000U, RC_MEMORY_TYPE_SYSTEM_RAM, "System RAM" },      /* User Memory (1.9 Meg) */
+    { 0x000000U, 0x1FFFFFU, 0x80000000U, RC_MEMORY_TYPE_VIRTUAL_RAM, "Mirrored RAM" }, /* Kernel and User Memory Mirror (2 Meg) Cached */
+    { 0x000000U, 0x1FFFFFU, 0xA0000000U, RC_MEMORY_TYPE_VIRTUAL_RAM, "Mirrored RAM" }, /* Kernel and User Memory Mirror (2 Meg) Uncached */
 };
-static const rc_memory_regions_t rc_memory_regions_playstation = { _rc_memory_regions_playstation, 2 };
+static const rc_memory_regions_t rc_memory_regions_playstation = { _rc_memory_regions_playstation, 4 };
 
 /* ===== PlayStation 2 ===== */
 /* https://psi-rockin.github.io/ps2tek/ */
